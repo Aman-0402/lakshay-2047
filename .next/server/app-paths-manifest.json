@@ -1,22 +1,8 @@
 {
-  "/api/bookings/[id]/route": "app/api/bookings/[id]/route.js",
-  "/api/labs/route": "app/api/labs/route.js",
-  "/api/labs/[slug]/route": "app/api/labs/[slug]/route.js",
-  "/api/bookings/route": "app/api/bookings/route.js",
-  "/api/teams/[id]/join/route": "app/api/teams/[id]/join/route.js",
-  "/api/teams/route": "app/api/teams/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/og/route": "app/api/og/route.js",
-  "/(auth)/teams/[id]/page": "app/(auth)/teams/[id]/page.js",
-  "/(auth)/book/[labSlug]/page": "app/(auth)/book/[labSlug]/page.js",
-  "/(public)/labs/[slug]/page": "app/(public)/labs/[slug]/page.js",
-  "/(auth)/dashboard/page": "app/(auth)/dashboard/page.js",
-  "/(auth)/teams/page": "app/(auth)/teams/page.js",
   "/(public)/about/page": "app/(public)/about/page.js",
-  "/(public)/insights/page": "app/(public)/insights/page.js",
   "/(public)/events/page": "app/(public)/events/page.js",
-  "/(public)/partners/page": "app/(public)/partners/page.js",
+  "/(public)/insights/page": "app/(public)/insights/page.js",
   "/(public)/labs/page": "app/(public)/labs/page.js",
-  "/(public)/page": "app/(public)/page.js"
+  "/(public)/page": "app/(public)/page.js",
+  "/(public)/partners/page": "app/(public)/partners/page.js"
 }

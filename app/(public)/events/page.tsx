@@ -7,32 +7,39 @@ export const metadata: Metadata = {
   description: 'Upcoming events, workshops, and hackathons at the Centre of Future Skills.',
 }
 
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-IN', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+function formatTime(d: Date) {
+  return d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+}
+
 export default async function EventsPage() {
   const now = new Date()
 
-  const [upcoming, past] = await Promise.all([
-    prisma.event.findMany({
-      where: { isPublic: true, date: { gte: now } },
-      orderBy: { date: 'asc' },
-    }),
-    prisma.event.findMany({
-      where: { isPublic: true, date: { lt: now } },
-      orderBy: { date: 'desc' },
-      take: 6,
-    }),
-  ])
+  let upcoming: Awaited<ReturnType<typeof prisma.event.findMany>> = []
+  let past: Awaited<ReturnType<typeof prisma.event.findMany>> = []
 
-  function formatDate(d: Date) {
-    return d.toLocaleDateString('en-IN', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    })
-  }
-
-  function formatTime(d: Date) {
-    return d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+  try {
+    ;[upcoming, past] = await Promise.all([
+      prisma.event.findMany({
+        where: { isPublic: true, date: { gte: now } },
+        orderBy: { date: 'asc' },
+      }),
+      prisma.event.findMany({
+        where: { isPublic: true, date: { lt: now } },
+        orderBy: { date: 'desc' },
+        take: 6,
+      }),
+    ])
+  } catch {
+    // table may not exist yet — show empty state
   }
 
   return (
@@ -41,7 +48,7 @@ export default async function EventsPage() {
         {/* Header */}
         <div className="py-16 text-center">
           <p className="text-xs font-mono tracking-widest uppercase text-accent mb-3">
-            What's On
+            What&apos;s On
           </p>
           <h1 className="font-heading font-bold text-4xl text-white mb-4">Events</h1>
           <p className="text-text-muted max-w-lg mx-auto">
@@ -51,10 +58,10 @@ export default async function EventsPage() {
 
         {/* Upcoming */}
         {upcoming.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center border border-border rounded-xl bg-surface-2 mb-12">
-            <CalendarX size={32} className="text-text-subtle mb-3" />
-            <p className="text-text-muted text-sm">No upcoming events.</p>
-            <p className="text-text-subtle text-xs mt-1">Check back soon.</p>
+          <div className="flex flex-col items-center justify-center py-24 text-center rounded-xl border border-border bg-surface-2 mb-12">
+            <CalendarX size={32} className="text-text-subtle mb-4" />
+            <p className="text-white font-semibold mb-1">No upcoming events</p>
+            <p className="text-text-subtle text-sm">Check back soon.</p>
           </div>
         ) : (
           <section className="mb-16">

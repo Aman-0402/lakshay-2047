@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ExternalLink, Building2 } from 'lucide-react'
 import { prisma } from '@/lib/prisma'
 
@@ -10,9 +9,15 @@ export const metadata: Metadata = {
 }
 
 export default async function PartnersPage() {
-  const partners = await prisma.partner.findMany({
-    orderBy: [{ featured: 'desc' }, { name: 'asc' }],
-  })
+  let partners: Awaited<ReturnType<typeof prisma.partner.findMany>> = []
+
+  try {
+    partners = await prisma.partner.findMany({
+      orderBy: [{ featured: 'desc' }, { name: 'asc' }],
+    })
+  } catch {
+    // table may not exist yet — show empty state
+  }
 
   const featured = partners.filter((p) => p.featured)
   const rest = partners.filter((p) => !p.featured)
@@ -32,13 +37,13 @@ export default async function PartnersPage() {
         </div>
 
         {partners.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center border border-border rounded-xl bg-surface-2">
-            <Building2 size={32} className="text-text-subtle mb-3" />
-            <p className="text-text-muted text-sm">Partner announcements coming soon.</p>
+          <div className="flex flex-col items-center justify-center py-24 text-center rounded-xl border border-border bg-surface-2 mb-16">
+            <Building2 size={32} className="text-text-subtle mb-4" />
+            <p className="text-white font-semibold mb-1">Partner announcements coming soon</p>
+            <p className="text-text-subtle text-sm">Check back soon.</p>
           </div>
         ) : (
           <>
-            {/* Featured partners */}
             {featured.length > 0 && (
               <section className="mb-16">
                 <h2 className="text-xs font-semibold uppercase tracking-widest text-text-subtle mb-8 text-center">
@@ -52,9 +57,8 @@ export default async function PartnersPage() {
               </section>
             )}
 
-            {/* All other partners */}
             {rest.length > 0 && (
-              <section>
+              <section className="mb-16">
                 <h2 className="text-xs font-semibold uppercase tracking-widest text-text-subtle mb-8 text-center">
                   Partners
                 </h2>
@@ -69,10 +73,10 @@ export default async function PartnersPage() {
         )}
 
         {/* CTA */}
-        <div className="mt-20 rounded-xl border border-border bg-surface-2 p-8 text-center">
+        <div className="rounded-xl border border-border bg-surface-2 p-8 text-center">
           <h2 className="font-heading font-semibold text-white mb-2">Become a Partner</h2>
           <p className="text-text-muted text-sm mb-6 max-w-md mx-auto">
-            Collaborate with Parul University's Centre of Future Skills to shape the next generation of talent.
+            Collaborate with Parul University&apos;s Centre of Future Skills to shape the next generation of talent.
           </p>
           <a
             href="mailto:cfs@paruluniversity.ac.in"
@@ -97,7 +101,9 @@ function PartnerCard({
     <div
       className={`group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-surface-2 hover:border-primary/30 transition-all ${large ? 'p-6' : 'p-4'}`}
     >
-      <div className={`relative ${large ? 'w-24 h-16' : 'w-16 h-10'} flex items-center justify-center`}>
+      <div
+        className={`relative flex items-center justify-center ${large ? 'w-24 h-16' : 'w-16 h-10'}`}
+      >
         <Image
           src={partner.logo}
           alt={partner.name}

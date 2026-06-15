@@ -8,23 +8,36 @@ export const metadata: Metadata = {
   description: 'Articles, research, and stories from the Centre of Future Skills.',
 }
 
-export default async function InsightsPage() {
-  const insights = await prisma.insight.findMany({
-    where: { isPublished: true },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      excerpt: true,
-      coverImage: true,
-      publishedAt: true,
-    },
-    orderBy: { publishedAt: 'desc' },
-  })
+function formatDate(d: Date | null) {
+  if (!d) return ''
+  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+}
 
-  function formatDate(d: Date | null) {
-    if (!d) return ''
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+export default async function InsightsPage() {
+  let insights: Array<{
+    id: string
+    title: string
+    slug: string
+    excerpt: string
+    coverImage: string | null
+    publishedAt: Date | null
+  }> = []
+
+  try {
+    insights = await prisma.insight.findMany({
+      where: { isPublished: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        coverImage: true,
+        publishedAt: true,
+      },
+      orderBy: { publishedAt: 'desc' },
+    })
+  } catch {
+    // table may not exist yet — show empty state
   }
 
   return (
@@ -43,10 +56,10 @@ export default async function InsightsPage() {
 
         {/* Content */}
         {insights.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center border border-border rounded-xl bg-surface-2">
-            <BookOpen size={32} className="text-text-subtle mb-3" />
-            <p className="text-text-muted text-sm">No insights published yet.</p>
-            <p className="text-text-subtle text-xs mt-1">Check back soon.</p>
+          <div className="flex flex-col items-center justify-center py-24 text-center rounded-xl border border-border bg-surface-2">
+            <BookOpen size={32} className="text-text-subtle mb-4" />
+            <p className="text-white font-semibold mb-1">No insights published yet</p>
+            <p className="text-text-subtle text-sm">Check back soon.</p>
           </div>
         ) : (
           <div className="space-y-6">
