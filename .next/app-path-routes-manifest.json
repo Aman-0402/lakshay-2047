@@ -1,4 +1,9 @@
 {
+  "/api/labs/route": "/api/labs",
+  "/api/labs/[slug]/route": "/api/labs/[slug]",
   "/_not-found/page": "/_not-found",
-  "/(public)/page": "/"
+  "/api/og/route": "/api/og",
+  "/(public)/labs/[slug]/page": "/labs/[slug]",
+  "/(public)/page": "/",
+  "/(public)/labs/page": "/labs"
 }
