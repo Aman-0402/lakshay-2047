@@ -1,9 +1,7 @@
 {
-  "/api/labs/route": "app/api/labs/route.js",
-  "/api/labs/[slug]/route": "app/api/labs/[slug]/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/og/route": "app/api/og/route.js",
-  "/(public)/labs/[slug]/page": "app/(public)/labs/[slug]/page.js",
+  "/(auth)/book/[labSlug]/page": "app/(auth)/book/[labSlug]/page.js",
+  "/(public)/labs/page": "app/(public)/labs/page.js",
   "/(public)/page": "app/(public)/page.js",
-  "/(public)/labs/page": "app/(public)/labs/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/labs/[slug]/route": "app/api/labs/[slug]/route.js"
 }
