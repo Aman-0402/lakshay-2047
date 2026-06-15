@@ -1,0 +1,22 @@
+{
+  "/api/labs/[slug]/route": "/api/labs/[slug]",
+  "/api/bookings/[id]/route": "/api/bookings/[id]",
+  "/api/bookings/route": "/api/bookings",
+  "/api/labs/route": "/api/labs",
+  "/api/teams/[id]/join/route": "/api/teams/[id]/join",
+  "/api/teams/route": "/api/teams",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/api/og/route": "/api/og",
+  "/(auth)/book/[labSlug]/page": "/book/[labSlug]",
+  "/(auth)/teams/[id]/page": "/teams/[id]",
+  "/(public)/labs/[slug]/page": "/labs/[slug]",
+  "/(public)/about/page": "/about",
+  "/(auth)/teams/page": "/teams",
+  "/(auth)/dashboard/page": "/dashboard",
+  "/(public)/labs/page": "/labs",
+  "/(public)/events/page": "/events",
+  "/(public)/insights/page": "/insights",
+  "/(public)/partners/page": "/partners",
+  "/(public)/page": "/"
+}
