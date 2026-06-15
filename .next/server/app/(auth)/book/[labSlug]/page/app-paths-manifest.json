@@ -1,3 +1,0 @@
-{
-  "/(auth)/book/[labSlug]/page": "app/(auth)/book/[labSlug]/page.js"
-}

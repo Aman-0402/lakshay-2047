@@ -3,10 +3,9 @@
     "id": 1970,
     "files": [
       "static/chunks/b536a0f1.ca93ca66ddf3651d.js",
-      "static/chunks/a3cd4a83.2444ac26a7b98caa.js",
       "static/chunks/b79b7286.32bccb601df7e425.js",
-      "static/chunks/806.4fb7566d8f7ab301.js",
-      "static/chunks/970.0b15c1db14bb7779.js"
+      "static/chunks/338.ff49a50f5c6a9ba2.js",
+      "static/chunks/970.7ca74f6658312da4.js"
     ]
   },
   "node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js": {

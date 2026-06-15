@@ -3,7 +3,6 @@
 import { useRef, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import ParticleField from './ParticleField'
 import FloatingOrb from './FloatingOrb'
@@ -35,8 +34,10 @@ function CameraRig() {
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={0.8} />
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1.5} />
+      <pointLight position={[-8, -6, 4]} intensity={0.8} color="#6C63FF" />
+      <pointLight position={[6, 4, -4]} intensity={0.6} color="#00D4FF" />
       <Environment preset="city" />
 
       <ParticleField />
@@ -44,15 +45,6 @@ function Scene() {
       <FloatingOrb position={[-3, 1, -2]} color="#6C63FF" speed={0.5} />
       <FloatingOrb position={[3, -1, -3]} color="#00D4FF" speed={0.7} />
       <FloatingOrb position={[0.5, 2.5, -4]} color="#A855F7" speed={0.35} />
-
-      <EffectComposer>
-        <Bloom
-          intensity={1.4}
-          luminanceThreshold={0.25}
-          luminanceSmoothing={0.9}
-          mipmapBlur
-        />
-      </EffectComposer>
 
       <CameraRig />
     </>
